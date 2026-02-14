@@ -1,0 +1,182 @@
+:root {
+  /* Colors */
+  --bg-color: #111111;
+  --bg-secondary: #848484;
+  --text-color: #f0f8ff;
+  --active-color: #00ff9c;
+  --border-color: #2c2c2c;
+
+  /* Spacing */
+  --space-xs: 0.5rem;
+  --space-sm: 1rem;
+  --space-md: 1.5rem;
+  --space-lg: 2rem;
+  --space-xl: 3rem;
+
+  /* Font Sizes */
+  --text-sm: 0.875rem;
+  --text-md: 1rem;
+  --text-lg: 2rem;
+  --text-xl: 4rem;
+  --text-2xl: 8rem;
+
+  /* Radius & Shadow */
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 1rem;
+  --shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.4);
+
+  /* Padding */
+  --padding-sm: 0.5rem;
+  --padding-md: 1rem;
+  --padding-lg: 2rem;
+
+  /* Margin */
+  --margin-sm: 0.5rem;
+  --margin-md: 1rem;
+  --margin-lg: 2rem;
+
+  --font-main: "Pixelify Sans", sans-serif;
+}
+
+*,
+html,
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: var(--font-main);
+}
+
+.screen {
+  width: 100%;
+  height: 100vh;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-family: var(--font-main);
+  padding: var(--padding-md);
+  display: flex;
+  flex-direction: column;
+}
+
+.screen .nav {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding-top: var(--padding-lg);
+  padding-bottom: var(--padding-sm);
+  cursor: not-allowed;
+}
+
+.highlights {
+  color: var(--active-color);
+}
+
+.title {
+  font-size: var(--text-2xl);
+  cursor:
+    url("../assets/black-cobra-snake.png") 16 16,
+    pointer;
+}
+
+.board {
+  height: 100%;
+  width: 100%;
+  border: 2px solid;
+  border-radius: var(--radius-lg);
+  border-color: var(--border-color);
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 30px);
+  justify-content: space-evenly;
+  align-content: space-around;
+}
+
+.board .box {
+  height: 30px;
+  width: 30px;
+  /* border: 2px dotted; */
+  border-color: var(--border-color);
+  border-radius: var(--radius-lg);
+}
+
+.snake-head {
+  background: var(--active-color);
+  border-radius: var(--radius-lg);
+}
+
+.snake-body {
+  background: var(--bg-secondary);
+  border-radius: var(--radius-lg);
+}
+
+.food {
+  background: rgb(245, 96, 96);
+  border-radius: var(--radius-lg);
+}
+
+.modal-overlay.show ~ .screen {
+  filter: blur(6px);
+  pointer-events: none;
+}
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(6px);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  opacity: 0;
+  pointer-events: none;
+  transition: 0.3s ease;
+  z-index: 1000;
+}
+
+.modal-overlay.show {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.modal {
+  background: var(--bg-secondary);
+  border-radius: var(--radius-lg);
+  padding: 2rem 3rem;
+  text-align: center;
+  box-shadow: var(--shadow);
+  border: 2px solid var(--border-color);
+}
+
+.modal h1 {
+  font-size: var(--text-xl);
+  margin-bottom: 1rem;
+  color: var(--active-color);
+}
+
+.modal p {
+  margin-bottom: 1.5rem;
+}
+
+.modal-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.modal button {
+  padding: 0.7rem 1.5rem;
+  font-family: var(--font-main);
+  font-size: var(--text-md);
+  border-radius: var(--radius-md);
+  border: none;
+  cursor: pointer;
+  background: var(--active-color);
+  color: black;
+  transition: 0.2s;
+}
+
+.modal button:hover {
+  transform: scale(1.08);
+}

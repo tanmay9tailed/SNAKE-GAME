@@ -4,8 +4,7 @@ const board = document.querySelector(".board");
 const scoreElement = document.querySelector(".current-score");
 const highscoreElement = document.querySelector(".high-score");
 const startModal = document.getElementById("startModal");
-const startWithGridBtn = document.getElementById("startWithGrid");
-const startWithoutGridBtn = document.getElementById("startWithoutGrid");
+const start = document.getElementById("start");
 const gameOverModal = document.getElementById("gameOverModal");
 const restartBtn = document.getElementById("restartGame");
 
@@ -183,21 +182,9 @@ function startGame() {
   }, 250);
 }
 
-// Start WITH grid
-startWithGridBtn.addEventListener("click", () => {
-  document.querySelectorAll(".box").forEach((ele) => {
-    ele.style.border = "2px dotted";
-    ele.style.borderColor = "var(--border-color)";
-  });
-  board.style.border = "0px dotted";
-  startModal.classList.remove("show");
+start.addEventListener("click", () => {
   startGame();
-});
-
-// Start WITHOUT grid
-startWithoutGridBtn.addEventListener("click", () => {
   startModal.classList.remove("show");
-  startGame();
 });
 
 restartBtn.addEventListener("click", () => {

@@ -7,6 +7,8 @@ const startModal = document.getElementById("startModal");
 const start = document.getElementById("start");
 const gameOverModal = document.getElementById("gameOverModal");
 const restartBtn = document.getElementById("restartGame");
+const eatingSound = new Audio("./assets/eating.mp3");
+const gameoverSound = new Audio("./assets/gameover.mp3");
 
 const boardHeight = board.clientHeight;
 const boardWidth = board.clientWidth;
@@ -29,6 +31,8 @@ let direction = "";
 let food = generateFood();
 
 let currentScore = 0;
+
+let speed = 250;
 
 let highscore = localStorage.getItem("highscore") || 0;
 highscoreElement.innerText = highscore;
@@ -59,6 +63,7 @@ function drawSnake() {
     });
   } catch (error) {
     clearInterval(gameInterval); // stop game
+    gameoverSound.play();
     gameOverModal.classList.add("show");
     document.getElementById("finalScore").innerText = currentScore;
   }
@@ -77,6 +82,8 @@ function moveSnake() {
     let oldY = snake[snake.length - 1].y;
 
     if (newX == food.x && newY == food.y) {
+      increaseSpeed();
+      eatingSound.play();
       boxes[food.x][food.y].classList = "box";
       food = generateFood();
       boxes[food.x][food.y].classList = "food";
@@ -97,6 +104,8 @@ function moveSnake() {
     let oldY = snake[snake.length - 1].y;
 
     if (newX == food.x && newY == food.y) {
+      increaseSpeed();
+      eatingSound.play();
       boxes[food.x][food.y].classList = "box";
       food = generateFood();
       boxes[food.x][food.y].classList = "food";
@@ -117,6 +126,8 @@ function moveSnake() {
     let oldY = snake[snake.length - 1].y;
 
     if (newX == food.x && newY == food.y) {
+      increaseSpeed();
+      eatingSound.play();
       boxes[food.x][food.y].classList = "box";
       food = generateFood();
       boxes[food.x][food.y].classList = "food";
@@ -137,6 +148,8 @@ function moveSnake() {
     let oldY = snake[snake.length - 1].y;
 
     if (newX == food.x && newY == food.y) {
+      increaseSpeed();
+      eatingSound.play();
       boxes[food.x][food.y].classList = "box";
       food = generateFood();
       boxes[food.x][food.y].classList = "food";
@@ -163,6 +176,13 @@ function updateScore() {
   }
 }
 
+function increaseSpeed() {
+  if (speed > 60) {
+    speed -= 5;
+    startGame();
+  }
+}
+
 document.addEventListener("keydown", (e) => {
   if (e.key === "ArrowUp" && direction !== "DOWN") direction = "UP";
   if (e.key === "ArrowDown" && direction !== "UP") direction = "DOWN";
@@ -179,7 +199,7 @@ function startGame() {
   gameInterval = setInterval(() => {
     moveSnake();
     drawSnake();
-  }, 250);
+  }, speed);
 }
 
 start.addEventListener("click", () => {
